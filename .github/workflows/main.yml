@@ -41,4 +41,8 @@ jobs:
         git add ./freev2
         git add ./utils
         git commit -m "更新时间 $(date '+%Y-%m-%d %H:%M:%S')"
-        git push
+    - name: 推送更改
+      uses:  ad-m/github-push-action@main
+      with:
+         # github_token: ${{ secrets.TOKEN }}
+         branch: main
