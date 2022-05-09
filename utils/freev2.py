@@ -1,14 +1,37 @@
 import requests,random,string
 
-class feiniao():
-    def __init__(self):
-        pass
-    @staticmethod
-    def register(email,password,proxy=None):
-        url="https://feiniaoyun.tk/api/v1/passport/auth/register"
+sites=[
+    {
+        "name":"feiniao",
+        "url":"https://feiniaoyun.tk/",
+        "reg_url":"https://feiniaoyun.tk/api/v1/passport/auth/register",
+        "sub":"https://feiniaoyun.tk/api/v1/client/subscribe?token={token}"
+    },
+    {
+        "name":"kelecloud",
+        "url":"https://my.kelecloud.xyz/",
+        "reg_url":"https://my.kelecloud.xyz/api/v1/passport/auth/register",
+        "sub":"https://panel.kelecloud.xyz/api/v1/client/subscribe?token={token}"
+    },
+    {
+        "name":"ckcloud",
+        "url":"https://www.ckcloud.xyz/",
+        "reg_url":"https://www.ckcloud.xyz/api/v1/passport/auth/register",
+        "sub":"https://www.ckcloud.xyz/api/v1/client/subscribe?token={token}"
+    }
+]
+
+class tempsite():
+    def __init__(self,site):
+        self.reg_url=site["reg_url"]
+        self.ref=site["url"]
+        self.name=site["name"]
+        self.sub=site["sub"]
+
+    def register(self,email,password,proxy=None):
         headers= {
             "User-Agent":'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36',
-            "Referer": "https://feiniaoyun.tk/"
+            "Referer": self.ref
         }
         data={
             "email":email,
@@ -16,96 +39,31 @@ class feiniao():
             "invite_code":None,
             "email_code":None
         }
-        req=requests.post(url,headers=headers,data=data,timeout=5,proxies=proxy)
+        req=requests.post(self.reg_url,headers=headers,data=data,timeout=5,proxies=proxy)
         return req
-    
-    @staticmethod
-    def login(email,password):
-        url="https://feiniaoyun.tk/api/v1/passport/auth/login"
-        headers= {
-            "User-Agent":'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36',
-            "Referer": "https://feiniaoyun.tk/"
-        }
-        data={
-            "email":email,
-            "password":password
-        }
-        req=requests.post(url,headers=headers,data=data,verify=True,timeout=5)
-        return req
-
-    @staticmethod
-    def getSubscribe(proxy=None):
-        #api="https://api.wcc.best/sub?target=v2ray&url="
-        api=""
-        password=''.join(random.sample(string.ascii_letters + string.digits + string.ascii_lowercase, 10))
-        email=password+"@gmail.com"
-        req=feiniao.register(email,password,proxy)
-        try:
-            token=req.json()["data"]["token"]
-            subscribe=f"https://feiniaoyun.tk/api/v1/client/subscribe?token={token}"
-            return api+subscribe
-        except:
-            return req
         
-    @staticmethod
-    def saveconf():
-        url=feiniao.getSubscribe()
-        for k in range(3):
-            try:
-                req=requests.get(url,timeout=5)
-                with open("./freev2/feiniao","w") as f:
-                    f.write(req.text)
-                break
-            except:
-                continue
-            
-class ckcloud():
-    def __init__(self):
-        pass
-    
-    @staticmethod
-    def register(email,password,proxy=None):
-        url="https://www.ckcloud.xyz/api/v1/passport/auth/register"
-        headers= {
-            "User-Agent":'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36',
-            "Referer": "https://www.ckcloud.xyz/"
-        }
-        data={
-            "email":email,
-            "password":password,
-            "invite_code":None,
-            "email_code":None
-        }
-        req=requests.post(url,headers=headers,data=data,verify=True,timeout=5,proxies=proxy)
-        return req
-
-    @staticmethod
-    def getSubscribe(proxy=None):
-        api=""
+    def getSubscribe(self):
         password=''.join(random.sample(string.ascii_letters + string.digits + string.ascii_lowercase, 10))
         email=password+"@gmail.com"
-        req=ckcloud.register(email,password,proxy)
-        try:
-            token=req.json()["data"]["token"]
-            subscribe=f"https://www.ckcloud.xyz/api/v1/client/subscribe?token={token}"
-            return api+subscribe
-        except:
-            return req
-    
-    @staticmethod
-    def saveconf():
-        url=ckcloud.getSubscribe()
+        req=self.register(email,password)
+        token=req.json()["data"]["token"]
+        subscribe=self.sub.format(token=token)
+        return subscribe
+
+    def saveconf(self):
+        url=self.getSubscribe()
         for k in range(3):
             try:
                 req=requests.get(url,timeout=5)
-                with open("./freev2/ckcloud","w") as f:
-                    f.write(req.text)
+                v2conf=req.text
                 break
             except:
-                continue
+                v2conf=""
+        with open("./freev2/"+self.name,"w") as f:
+                    f.write(v2conf)
 
 def getconf():
-    ckcloud.saveconf()
-    feiniao.saveconf()
-    
+    for v2site in sites:
+        obj=tempsite(v2site)
+        obj.saveconf()    
     
