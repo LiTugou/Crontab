@@ -46,7 +46,14 @@ class feiniao():
             return api+subscribe
         except:
             return req
-
+        
+    @staticmethod
+    def saveconf():
+        url=ckcloud.getSubscibe()
+        req=requests.get(url)
+        with open("./freev2/feiniao") as f:
+            f.write(req.text)
+            
 class ckcloud():
     def __init__(self):
         pass
@@ -79,5 +86,16 @@ class ckcloud():
             return api+subscribe
         except:
             return req
-        
+    
+    @staticmethod
+    def saveconf():
+        url=ckcloud.getSubscibe()
+        req=requests.get(url)
+        with open("./freev2/ckcloud") as f:
+            f.write(req.text)
+
+def saveconf():
+    ckcloud.saveconf()
+    feiniao.saveconf()
+    
     
