@@ -102,6 +102,7 @@ class ckcloud():
                     f.write(req.text)
                 break
             except:
+                raise
                 continue
 
 def getconf():
