@@ -34,3 +34,10 @@ jobs:
     - name: 执行任务
       run: |
         python ./utils/main.py
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "GitHub Actions"
+        git add ./freev2
+        git commit -m "更新时间 $(date '+%Y-%m-%d %H:%M:%S')"
+        git push
