@@ -94,7 +94,7 @@ class ckcloud():
         with open("./freev2/ckcloud") as f:
             f.write(req.text)
 
-def saveconf():
+def getconf():
     ckcloud.saveconf()
     feiniao.saveconf()
     
