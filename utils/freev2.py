@@ -53,7 +53,7 @@ class feiniao():
         for k in range(3):
             try:
                 req=requests.get(url,timeout=5)
-                with open("./freev2/feiniao") as f:
+                with open("./freev2/feiniao","w") as f:
                     f.write(req.text)
                 break
             except:
@@ -98,7 +98,7 @@ class ckcloud():
         for k in range(3):
             try:
                 req=requests.get(url,timeout=5)
-                with open("./freev2/ckcloud") as f:
+                with open("./freev2/ckcloud","w") as f:
                     f.write(req.text)
                 break
             except:
