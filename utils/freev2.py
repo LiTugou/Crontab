@@ -30,7 +30,7 @@ class feiniao():
             "email":email,
             "password":password
         }
-        req=requests.post(url,headers=headers,data=data,verify=False,timeout=5)
+        req=requests.post(url,headers=headers,data=data,verify=True,timeout=5)
         return req
 
     @staticmethod
@@ -76,7 +76,7 @@ class ckcloud():
             "invite_code":None,
             "email_code":None
         }
-        req=requests.post(url,headers=headers,data=data,verify=False,timeout=5,proxies=proxy)
+        req=requests.post(url,headers=headers,data=data,verify=True,timeout=5,proxies=proxy)
         return req
 
     @staticmethod
