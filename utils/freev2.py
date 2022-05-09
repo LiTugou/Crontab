@@ -49,10 +49,15 @@ class feiniao():
         
     @staticmethod
     def saveconf():
-        url=ckcloud.getSubscibe()
-        req=requests.get(url)
-        with open("./freev2/feiniao") as f:
-            f.write(req.text)
+        url=feiniao.getSubscribe()
+        for k in range(3):
+            try:
+                req=requests.get(url,timeout=5)
+                with open("./freev2/feiniao") as f:
+                    f.write(req.text)
+                break
+            except:
+                continue
             
 class ckcloud():
     def __init__(self):
@@ -89,10 +94,15 @@ class ckcloud():
     
     @staticmethod
     def saveconf():
-        url=ckcloud.getSubscibe()
-        req=requests.get(url)
-        with open("./freev2/ckcloud") as f:
-            f.write(req.text)
+        url=ckcloud.getSubscribe()
+        for k in range(3):
+            try:
+                req=requests.get(url,timeout=5)
+                with open("./freev2/ckcloud") as f:
+                    f.write(req.text)
+                break
+            except:
+                continue
 
 def getconf():
     ckcloud.saveconf()
