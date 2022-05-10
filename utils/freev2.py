@@ -65,5 +65,8 @@ class tempsite():
 def getconf():
     for v2site in sites:
         obj=tempsite(v2site)
-        obj.saveconf()    
+        try:
+            obj.saveconf()
+        except:
+            pass  
     
