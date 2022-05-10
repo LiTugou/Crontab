@@ -7,8 +7,11 @@ on:
   schedule:
     # - cron: '0 3,12 * * *'
     # 表达式生成  https://crontab.guru/
-    - cron: '0 3 * * *'
+    - cron: '0 15 * * *'
 
+env: # 设置环境变量
+  TZ: Asia/Shanghai
+  
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -34,7 +37,7 @@ jobs:
     - name: 执行任务
       run: |
         python ./utils/main.py
-    - name: Commit and push changes
+    - name: Commit
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
