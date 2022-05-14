@@ -49,3 +49,11 @@ jobs:
       with:
          # github_token: ${{ secrets.TOKEN }}
          branch: main
+    - name: Single repo mirror
+      uses: Yikun/hub-mirror-action@master
+      with:
+        src: github/LiTugou
+        dst: gitee/li-tugou
+        dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+        dst_token: ${{ secrets.GITEE_TOKEN }}
+        static_list: "Crontab"
