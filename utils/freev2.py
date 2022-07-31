@@ -3,9 +3,9 @@ import requests,random,string
 sites=[
     {
         "name":"feiniao",
-        "url":"https://feiniaoyun.tk/",
-        "reg_url":"https://feiniaoyun.tk/api/v1/passport/auth/register",
-        "sub":"https://feiniaoyun.tk/api/v1/client/subscribe?token={token}"
+        "url":"https://feiniaoyun.xyz/",
+        "reg_url":"https://feiniaoyun.xyz/api/v1/passport/auth/register",
+        "sub":"https://feiniaoyun.xyz/api/v1/client/subscribe?token={token}"
     },
     {
         "name":"circlecloud123",
