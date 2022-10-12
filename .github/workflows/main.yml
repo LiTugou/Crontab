@@ -44,16 +44,18 @@ jobs:
         git add ./freev2
         git add ./utils
         git commit -m "更新时间 $(date '+%Y-%m-%d %H:%M:%S')"
-    - name: 推送更改
-      uses:  ad-m/github-push-action@master
-      with:
-         # github_token: ${{ secrets.TOKEN }}
-         branch: main
-    - name: Single repo mirror
-      uses: Yikun/hub-mirror-action@master
-      with:
-        src: github/LiTugou
-        dst: gitee/li-tugou
-        dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
-        dst_token: ${{ secrets.GITEE_TOKEN }}
-        static_list: "Crontab"
+        git push origin main
+#     - name: 推送更改
+#       uses:  ad-m/github-push-action@master
+#       with:
+#          # github_token: ${{ secrets.TOKEN }}
+#          branch: main
+
+#     - name: Single repo mirror
+#       uses: Yikun/hub-mirror-action@master
+#       with:
+#         src: github/LiTugou
+#         dst: gitee/li-tugou
+#         dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+#         dst_token: ${{ secrets.GITEE_TOKEN }}
+#         static_list: "Crontab"
